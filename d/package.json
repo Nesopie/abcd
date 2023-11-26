@@ -1,6 +1,6 @@
 {
   "name": "@abcdpackage/d",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "ethers": "^6.8.1"
   },
