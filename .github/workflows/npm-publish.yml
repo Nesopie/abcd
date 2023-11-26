@@ -35,8 +35,8 @@ jobs:
           for ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
           do 
             cd $lib
-            echo $lib
             npm version patch
+            echo "$lib=$(npm pkg get version)"
             pnpm install
             cd ../
           done
