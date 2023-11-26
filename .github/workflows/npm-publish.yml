@@ -26,8 +26,8 @@ jobs:
         run: |
           for lib in $(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build)
           do 
-            cd $(lib)
-            echo $(lib)
+            cd $lib
+            echo $lib
             pnpm install
             npm version patch
             git add package.json
@@ -35,5 +35,6 @@ jobs:
             git status
             git commit -m "update affected package versions"
             git push origin main
+            pnpm install
           done
       - run: pnpm nx affected -t=build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
