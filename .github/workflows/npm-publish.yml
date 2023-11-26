@@ -22,7 +22,7 @@ jobs:
         run: npm install -g pnpm
       - name: Build and publish
         uses: nrwl/nx-set-shas@v4
-      - name: Install dependencies and push new package version
+      - name: Install dependencies and update package version
         shell: bash {0}
         run: |
           pnpm install
@@ -35,9 +35,12 @@ jobs:
             pnpm install
             cd ../
           done
+      - name: push new version commits
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add .
           git status
           git commit -m "update affected package versions"
           git push origin main
-          
       - run: pnpm nx affected -t=build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
