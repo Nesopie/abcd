@@ -40,7 +40,9 @@ jobs:
             pnpm install
             cd ../
           done
-          echo "update package versions $(date +%s)"
+          cd d
+          echo $(npm pkg get version)
+          cd ../
       - name: push new version commits
         if: success()
         run: |
