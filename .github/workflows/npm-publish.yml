@@ -31,11 +31,12 @@ jobs:
             echo $lib
             pnpm install
             npm version patch
-            git add package.json
-            cd ../
-            git status
-            git commit -m "update affected package versions"
-            git push origin main
             pnpm install
+            cd ../
           done
+          git add .
+          git status
+          git commit -m "update affected package versions"
+          git push origin main
+          
       - run: pnpm nx affected -t=build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
