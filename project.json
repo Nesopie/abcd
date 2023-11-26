@@ -1,5 +1,5 @@
 {
-  "name": "@test-ci/source",
+  "name": "@abcdpackage/source",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "targets": {
     "lint": {
