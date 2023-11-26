@@ -25,6 +25,7 @@ jobs:
       - name: Install dependencies and push new package version
         shell: bash {0}
         run: |
+          pnpm install
           echo $(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build)
           for lib in $(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build)
           do 
