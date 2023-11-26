@@ -32,4 +32,4 @@ jobs:
           echo "$(git rev-parse @~)"
       - name: Build and publish
         uses: nrwl/nx-set-shas@v4
-        run: pnpm nx affected -t=build --base=${ {env.NX_BASE }} --head=${{ env.NX_HEAD }}
+      - run: pnpm nx affected -t=build --base=${ {env.NX_BASE }} --head=${{ env.NX_HEAD }}
