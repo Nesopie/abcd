@@ -32,4 +32,14 @@ jobs:
           echo "$(git rev-parse @~)"
       - name: Build and publish
         uses: nrwl/nx-set-shas@v4
+      - run: |
+          for lib in $(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build)
+          do 
+            cd $(lib)
+            npm version patch
+            git add package.json
+            cd ../
+            git commit -m "update affected package versions"
+            git push origin main
+          done
       - run: pnpm nx affected -t=build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
