@@ -1,0 +1,34 @@
+{
+  "name": "c",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "c/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/c"
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs c {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["c/**/*.ts", "c/package.json"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "c/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

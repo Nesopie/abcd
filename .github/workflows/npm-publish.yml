@@ -1,0 +1,35 @@
+name: Node.js Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Install dependencies
+        run: |
+          pnpm install
+          cd a && pnpm install
+          cd ../b && pnpm install
+          cd ../c && pnpm install
+          cd ../d && pnpm install
+          cd ../
+          echo "ECHO"
+          echo "$(git rev-parse @~)"
+      - name: Build and publish
+        uses: nrwl/nx-set-shas@v4
+        run: pnpm nx affected -t=build --base=${ {env.NX_BASE }} --head=${{ env.NX_HEAD }}

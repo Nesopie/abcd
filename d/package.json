@@ -1,0 +1,10 @@
+{
+  "name": "@abcdpackage/d",
+  "version": "0.0.1",
+  "dependencies": {
+    "ethers": "^6.8.1"
+  },
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "typings": "./index.d.ts"
+}
