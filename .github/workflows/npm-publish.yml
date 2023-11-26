@@ -20,25 +20,19 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - name: Install pnpm
         run: npm install -g pnpm
-      - name: Install dependencies
-        run: |
-          pnpm install
-          cd a && pnpm install
-          cd ../b && pnpm install
-          cd ../c && pnpm install
-          cd ../d && pnpm install
-          cd ../
-          echo "ECHO"
-          echo "$(git rev-parse @~)"
       - name: Build and publish
         uses: nrwl/nx-set-shas@v4
+      - name: Install dependencies and push new package version
       - run: |
           for lib in $(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build)
           do 
             cd $(lib)
+            echo $(lib)
+            pnpm install
             npm version patch
             git add package.json
             cd ../
+            git status
             git commit -m "update affected package versions"
             git push origin main
           done
