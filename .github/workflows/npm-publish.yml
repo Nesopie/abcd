@@ -26,8 +26,8 @@ jobs:
         shell: bash {0}
         run: |
           pnpm install
-          echo $(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build)
-          for lib in $(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build)
+          echo $(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build --exclude=@test-ci/source)
+          for lib in $(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build --exclude=@test-ci/source)
           do 
             cd $lib
             echo $lib
@@ -43,4 +43,5 @@ jobs:
           git status
           git commit -m "update affected package versions"
           git push origin main
-      - run: pnpm nx affected -t lint --fix -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }}
+      - name: lint and build all affected projects
+        run: pnpm nx affected -t lint --fix -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@test-ci/source
