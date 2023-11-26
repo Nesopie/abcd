@@ -32,7 +32,7 @@ jobs:
         shell: bash {0}
         run: |
           echo ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
-          for ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
+          for lib in ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
           do 
             cd $lib
             npm version patch
@@ -40,11 +40,7 @@ jobs:
             pnpm install
             cd ../
           done
-          cd d
-          echo $(npm pkg get version)
-          cd ../
       - name: push new version commits
-        if: success()
         run: |
           echo $(date +%s)
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
