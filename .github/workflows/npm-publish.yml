@@ -42,7 +42,7 @@ jobs:
             pnpm install
             cd ../
           done
-      - name: push new version commits
+      - name: Push new version commits
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -51,10 +51,12 @@ jobs:
           git status
           git commit -m "update package versions"
           git push origin main
-      - name: lint and build all affected projects
+      - name: Lint and build all affected projects
         run: | 
-          pnpm nx affected -t lint --fix -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
-      - name: publish npm packages
+          for i in {1..2}; do pnpm nx affected -t lint --fix --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source; done
+          pnpm nx affected -t lint --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
+          pnpm nx affected -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
+      - name: Publish npm packages
         run: | 
           for lib in ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
           do
