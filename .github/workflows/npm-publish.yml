@@ -29,7 +29,7 @@ jobs:
         id: set-affected-libs
         run: | 
           echo "AFFECTED_LIBS=\"$(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build --exclude=@abcdpackage/source)\"" | tr '\n' ' '
-          echo "AFFECTED_LIBS=\"$(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build --exclude=@abcdpackage/source)\"" >> "$GITHUB_OUTPUT"
+          echo "AFFECTED_LIBS=\"$(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build --exclude=@abcdpackage/source)\"" | tr '\n' ' ' >> "$GITHUB_OUTPUT"
       - name: Install dependencies and update package versions
         shell: bash {0}
         run: |
