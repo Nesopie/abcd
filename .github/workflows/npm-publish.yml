@@ -49,7 +49,9 @@ jobs:
           git commit -m "update package versions"
           git push origin main
       - name: lint and build all affected projects
-        run: pnpm nx affected -t lint --fix -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
+        run: | 
+          pnpm nx affected -t lint --fix -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
+          echo $(cat d/package.json)
       - name: publish npm packages
         run: | 
           for lib in ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
