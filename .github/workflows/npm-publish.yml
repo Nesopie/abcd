@@ -55,13 +55,6 @@ jobs:
           for i in {1..2}; do pnpm nx affected -t lint --fix --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source; done
           pnpm nx affected -t lint --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
           pnpm nx affected -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
-      - name: Bump source version
-        run: |
-          echo ${{ github.ref_name }}
-          npm pkg set version ${{ github.ref_name }}
-          git add package.json
-          git commit -m "Bump source version"
-          git push origin main
       - name: Publish npm packages
         run: | 
           for lib in ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
