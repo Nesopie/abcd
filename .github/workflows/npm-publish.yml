@@ -2,8 +2,8 @@ name: Node.js Package
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - v*
 
 jobs:
   build-and-publish-npm:
@@ -44,8 +44,8 @@ jobs:
           done
       - name: Push new version commits
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
           git pull
           git add */package.json
           git status
@@ -56,6 +56,11 @@ jobs:
           for i in {1..2}; do pnpm nx affected -t lint --fix --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source; done
           pnpm nx affected -t lint --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
           pnpm nx affected -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
+      - name: Bump source version
+        run: |
+          git add package.json
+          git commit -m "Bump source version"
+          git push origin main
       - name: Publish npm packages
         run: | 
           for lib in ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
