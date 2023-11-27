@@ -34,7 +34,7 @@ jobs:
         shell: bash {0}
         run: |
           echo ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
-          for lib in ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
+          for lib in echo "${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}"
           do 
             cd $lib
             npm version patch
@@ -56,7 +56,7 @@ jobs:
           echo $(cat d/package.json)
       - name: publish npm packages
         run: | 
-          for lib in ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
+          for lib in echo "${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}"
           do
             cd dist/$lib
             npm publish --access=public
