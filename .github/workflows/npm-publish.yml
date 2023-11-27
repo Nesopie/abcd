@@ -58,6 +58,7 @@ jobs:
           pnpm nx affected -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
       - name: Bump source version
         run: |
+          npm version patch
           git add package.json
           git commit -m "Bump source version"
           git push origin main
