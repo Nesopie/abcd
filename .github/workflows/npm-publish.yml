@@ -1,9 +1,9 @@
 name: Node.js Package
 
 on:
-  push:
-    tags:
-      - v*
+  release:
+    types: [published]
+      
 
 jobs:
   build-and-publish-npm:
@@ -57,7 +57,8 @@ jobs:
           pnpm nx affected -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
       - name: Bump source version
         run: |
-          npm version patch
+          echo ${{ github.ref_name }}
+          npm pkg set version ${{ github.ref_name }}
           git add package.json
           git commit -m "Bump source version"
           git push origin main
