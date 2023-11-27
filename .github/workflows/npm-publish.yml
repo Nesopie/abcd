@@ -37,18 +37,9 @@ jobs:
           do 
             cd $lib
             npm version patch
-            echo "$lib=$(npm pkg get version)"
             pnpm install
             cd ../
           done
-      - name: Push new version commits
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git add */package.json
-          git status
-          git commit -m "update package versions"
-          git push origin main
       - name: Lint and build all affected projects
         run: | 
           for i in {1..2}; do pnpm nx affected -t lint --fix --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source; done
