@@ -60,5 +60,5 @@ jobs:
           do
             cd dist/$lib
             npm publish --access=public
-            cd ../
+            cd ../../
           done
