@@ -1,6 +1,6 @@
 {
   "name": "@abcdpackage/c",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "dependencies": {},
   "main": "./index.js",
   "module": "./index.mjs",
