@@ -95,5 +95,5 @@ jobs:
           done
       - name: Build and Publish affected projects
         run: |
-          pnpm nx affected -t build-and-publish --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
+          pnpm nx affected -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
 
