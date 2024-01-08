@@ -5,6 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@abcdpackage/a':
+    specifier: ^0.0.8
+    version: 0.0.8
+  '@abcdpackage/b':
+    specifier: ^0.0.8
+    version: 0.0.8
   '@nx/devkit':
     specifier: 17.2.8
     version: 17.2.8(nx@17.1.3)
@@ -110,6 +116,16 @@ packages:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /@abcdpackage/a@0.0.8:
+    resolution: {integrity: sha512-QEMkxVTwmFkqkFKbouWwPE1MBeAQ1tA/PYgrDTh2V/26YizVCisqrsA4Tb6wrChB8/buajIYlR2G4Tc2tWDHEg==}
+    dev: false
+
+  /@abcdpackage/b@0.0.8:
+    resolution: {integrity: sha512-wS0NELISNXUCPng2pKO6xAoIDCbloYestRU2rbuY181TlMBnFwu4W0kD2YaCdb/bsg0Hjwb7T3CLAdzoJgAz6Q==}
+    dependencies:
+      '@abcdpackage/a': 0.0.8
+    dev: false
 
   /@ampproject/remapping@2.2.1:
     resolution: {integrity: sha512-lFMjJTrFL3j7L9yBxwYfCq2k6qqwHyzuUl/XBnif78PWTJYyL/dfowQHWE3sp6U6ZzqWiiIZnpTMO96zhkjwtg==}
