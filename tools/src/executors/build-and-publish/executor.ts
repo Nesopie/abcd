@@ -39,7 +39,7 @@ export default async function runExecutor(
     (+version.slice(version.lastIndexOf('.') + 1) + 1).toString();
   execSync(`npm pkg set 'version'=${version}`, { cwd });
 
-  //   execSync(`npm publish`, { cwd });
+  execSync(`npm publish`, { cwd });
 
   return {
     success: true,
