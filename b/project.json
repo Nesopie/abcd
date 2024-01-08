@@ -28,6 +28,13 @@
       "options": {
         "jestConfig": "b/jest.config.ts"
       }
+    },
+    "build-and-publish": {
+      "executor": "@abcdpackage/tools:build-and-publish",
+      "options": {
+        "name": "b",
+        "dependencies": ["a"]
+      }
     }
   },
   "tags": []

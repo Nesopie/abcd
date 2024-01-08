@@ -3,7 +3,6 @@
 # on:
 #   release:
 #     types: [published]
-      
 
 # jobs:
 #   build-and-publish-npm:
@@ -27,26 +26,26 @@
 #         run: pnpm install
 #       - name: Set affected libs
 #         id: set-affected-libs
-#         run: | 
+#         run: |
 #           echo "AFFECTED_LIBS=$(pnpm nx show projects --affected --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --t=build --exclude=@abcdpackage/source | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
 #       - name: Install dependencies and update package versions
 #         shell: bash {0}
 #         run: |
 #           git checkout main
 #           for lib in ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
-#           do 
+#           do
 #             cd $lib
 #             npm version patch
 #             pnpm install
 #             cd ../
 #           done
 #       - name: Lint and build all affected projects
-#         run: | 
+#         run: |
 #           for i in {1..2}; do pnpm nx affected -t lint --fix --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source; done
 #           pnpm nx affected -t lint --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
 #           pnpm nx affected -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
 #       - name: Publish npm packages
-#         run: | 
+#         run: |
 #           for lib in ${{ steps.set-affected-libs.outputs.AFFECTED_LIBS }}
 #           do
 #             cd dist/$lib
@@ -95,5 +94,4 @@ jobs:
           done
       - name: Build and Publish affected projects
         run: |
-          pnpm nx affected -t build --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source
-
+          pnpm nx affected -t build-and-publish --base=${{ env.NX_BASE }} --head=${{ env.NX_HEAD }} --exclude=@abcdpackage/source

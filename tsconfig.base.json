@@ -18,7 +18,8 @@
       "@abcdpackage/a": ["a/src/index.ts"],
       "@abcdpackage/b": ["b/src/index.ts"],
       "@abcdpackage/c": ["c/src/index.ts"],
-      "@abcdpackage/d": ["d/src/index.ts"]
+      "@abcdpackage/d": ["d/src/index.ts"],
+      "@abcdpackage/tools": ["tools/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "build-and-publish": {
+      "implementation": "./src/executors/build-and-publish/executor",
+      "schema": "./src/executors/build-and-publish/schema.json",
+      "description": "build-and-publish executor"
+    }
+  }
+}
